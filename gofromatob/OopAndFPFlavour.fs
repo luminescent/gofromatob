@@ -37,7 +37,7 @@ type DrivingResult =
     | Malfunction 
     | Stopped // ?
      
-type TransportProcuremnet =
+type TransportProcurementResult =
     | Transporter of Transporter
     | NotFound
     | CostTooLow
@@ -48,8 +48,8 @@ type JourneyResult =
 
 
 // driver does not count as passenger 
-type TransportProcurer = Driver -> Passenger list -> Destination -> Destination -> Cost -> TransportProcuremnet
-let procureTransport (driver: Driver) (passengers: Passenger list) (a: Destination) (b: Destination) (cost: Cost): TransportProcuremnet = 
+type TransportProcurer = Driver -> Passenger list -> Destination -> Destination -> Cost -> TransportProcurementResult
+let procureTransport (driver: Driver) (passengers: Passenger list) (a: Destination) (b: Destination) (cost: Cost): TransportProcurementResult = 
      raise (NotImplemented("yet"))
 
 type Embarker = Transporter -> Driver -> Passenger list -> EmbarkingResult
