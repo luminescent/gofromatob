@@ -61,14 +61,14 @@ let eject (transporter: Transporter) (driver: Driver) (passengers: Passenger lis
      raise (NotImplemented("yet"))
 
 // we should fold on the Route 
-type Drive = Driver -> Passenger list -> Transporter -> RouteSegment -> DrivingResult
+type Drive = Transporter -> Driver -> Passenger list -> RouteSegment -> DrivingResult
 let drive (transporter: Transporter) (driver: Driver) (passengers: Passenger list) (segment: RouteSegment) : DrivingResult = 
      raise (NotImplemented("yet"))
 
 
-let journey (driver: Driver) (passengers: Passenger list) (a: Destination) (b: Destination) (cost: Cost) 
-            (procureTransportFunc: TransportProcurer) (embarkFunc: Embarker) (ejectFunc: BootOuter)
-            (driveFunc: Drive) : JourneyResult = 
+let journey (procureTransportFunc: TransportProcurer) (embarkFunc: Embarker) (ejectFunc: BootOuter) (driveFunc: Drive) 
+            (driver: Driver) (passengers: Passenger list) (a: Destination) (b: Destination) (cost: Cost) 
+            : JourneyResult = 
 
     match procureTransport driver passengers a b cost with 
     | NotFound -> 
@@ -85,11 +85,12 @@ let journey (driver: Driver) (passengers: Passenger list) (a: Destination) (b: D
         match embarkFunc transporter driver passengers with 
         | EmbarkingResult.Succeeded -> 
             
-            // 
-
+            //
+            JourneyResult.Succeeded 
         | _ -> 
             JourneyResult.Failed
     
+let journeyMaker = journey procureTransport embark eject drive
 
 
 type IInvoker = 
